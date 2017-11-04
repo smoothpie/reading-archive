@@ -2,19 +2,16 @@ import React from 'react';
 import { observer, inject } from 'mobx-react';
 import {Card, CardActions, CardTitle} from 'material-ui/Card';
 import RaisedButton from 'material-ui/RaisedButton';
+import { List } from 'material-ui/List';
 import NoteForm from './NoteForm';
 import Note from './Note';
 
-@inject('notestore') @observer
+@observer
 class Recap extends React.Component {
 
-    componentDidMount() {
-	this.props.notestore.getNotes();
-    }
-
     renderNotes() {
-	const { notestore } = this.props;
-	return notestore.notes.map((note) => (
+	const { notes } = this.props;
+	return notes.map((note) => (
 	    <Note
 	      key = {note.id}
 	      label = {note.content}
@@ -31,7 +28,9 @@ class Recap extends React.Component {
 		subtitle="Save important thoughts here"
 		/>
 	      <NoteForm />
-	      {this.renderNotes()}
+	      <List>
+		{this.renderNotes()}
+	      </List>
 	    </Card>
 	)
     }

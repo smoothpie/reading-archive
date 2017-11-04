@@ -16,25 +16,24 @@ const styles = {
 /*const propTypes = {
     store: PropTypes.object
 }*/
-@inject("store")
+@inject("store", "notestore")
 @observer
 class Books extends React.Component {
 
     componentDidMount() {
 	this.props.store.getBooks();
-	console.log(this.props.store);
+	this.props.notestore.getNotes();
     }
 
     renderSelection() {
-	const { store } = this.props;
-	console.log(store);
+	const { store, notestore } = this.props;
 	if (_.isEmpty(store.selectedBook)) return null;
 	return (
 	    <div className='selection'>
 	      <Selection
 		book={store.selectedBook}
 		/>
-	      <Recap />
+	      <Recap notes={notestore.notes}/>
 	    </div>
 	)
     }

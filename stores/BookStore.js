@@ -1,6 +1,5 @@
 import { observable, action, computed, useStrict } from 'mobx';
 import axios from 'axios';
-import shortid from 'shortid';
 
 //useStrict(true);
 

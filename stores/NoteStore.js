@@ -39,6 +39,7 @@ class NoteStore {
 
     @action getNotes() {
 	axios.get('/api/notes').then((res) => {
+	    this.isLoading = false;
 	    this.setNotes(res.data)
 	})
     }
