@@ -9,10 +9,6 @@ import _ from 'lodash';
 import {List, ListItem} from 'material-ui/List';
 import FlatButton from 'material-ui/FlatButton';
 
-const styles = {
-    list: { width: '450px', marginRight: '30px' }
-};
-
 /*const propTypes = {
     store: PropTypes.object
 }*/
@@ -41,19 +37,21 @@ class Books extends React.Component {
     renderBooks() {
 	const { store } = this.props;
 	return store.books.map((book) => (
-	    <Book
-	      key = {book.id}
-	      selected = {book.id === store.selectedId}
-	      label = {book.title}
-	      onClick = { () => {store.selectBook(book)} }
-	      />
+	      <Book
+		key = {book.id}
+		selected = {book.id === store.selectedId}
+		label = {book.title}
+		onClick = { () => {store.selectBook(book)} }
+		/>
 	))
     }
     
     render() {
 	return(
-	    <List style={styles.list}>
+	    <List>
+	      <div className="booklist">
 		{this.renderBooks()}
+	      </div>
 	        {this.renderSelection()}
 	    </List>
 	)
