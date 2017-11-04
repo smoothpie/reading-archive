@@ -31,7 +31,7 @@ class BookForm extends React.Component {
     render() {
 	const { title, description } = this;
 	return(
-	    <form onSubmit={this.onSubmit}>
+	    <form className="bookform" onSubmit={this.onSubmit}>
 	      <TextField
 		name="title"
 		onChange={this.onChange}
@@ -39,6 +39,7 @@ class BookForm extends React.Component {
 		hintText="Book title"
 		/>
 	      <TextField
+		className="input"
 		name="description"
 		onChange={this.onChange}
 		value={description}

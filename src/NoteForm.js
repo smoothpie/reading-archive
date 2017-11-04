@@ -24,12 +24,14 @@ class NoteForm extends React.Component {
 
     render() {
 	return(
-	    <form onSubmit={this.onSubmit}>
+	    <form className="noteform" onSubmit={this.onSubmit}>
 	      <TextField
 		name="content"
 		onChange={this.onChange}
+		multiLine={true}
 		/>
 	      <RaisedButton
+		className="btn"
 		label="Add a note"
 		primary={true}
 		type="submit"

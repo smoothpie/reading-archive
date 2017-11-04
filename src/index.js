@@ -4,7 +4,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import { BrowserRouter } from 'react-router-dom';
 import { useStrict } from 'mobx';
 import { Provider } from 'mobx-react';
-
+import style from './style.css';
 import store from '../stores/BookStore';
 import notestore from '../stores/NoteStore';
 

@@ -5,9 +5,11 @@ import BookForm from './BookForm';
 
 const Home = () => (
     <div>
-      <h1>Reading List</h1>
+      <h1>Reading Archive</h1>
 	<BookForm />
-	<Books  />
+	<div className="main">
+	  <Books  />
+	</div>
     </div>
 )
 
