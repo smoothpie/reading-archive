@@ -1,0 +1,24 @@
+** To Add
+
+- goodreads api
+- change "close description" to arrow icon
+- states - "finished" "reading"
+- delete book
+- author reference in model
+
+- get books by author
+- add tags
+
+- login Mazafaka (when ill have mobx, db and routes set up, thats easy)
+
+- create folders (MUI nested list): add folder or add book to current
+folder
+or folder list?
+and make it selectable
+
+- book description will be an Extendable card
+
+
+
+
+

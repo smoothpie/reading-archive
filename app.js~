@@ -1,0 +1,12 @@
+const Sequelize = require('sequelize');
+
+const connection = new Sequelize('test', 'smoothpie', 'gontier', {
+    dialect: 'postgres'
+})
+
+var Book = connection.define('book', {
+    title: Sequelize.STRING,
+    finished: false
+})
+
+connection.sync();

@@ -1,0 +1,23 @@
+import React from 'react';
+import PropTypes from 'prop-types';
+import {Card, CardActions, CardTitle} from 'material-ui/Card';
+import RaisedButton from 'material-ui/RaisedButton'
+//сверху - goodreads title, photo, rate and description
+//Create a short recap of the book and "add note" btn
+
+const propTypes = {
+    book: PropTypes.object
+};
+
+//change for goodreads page
+const Selection = ({ book }) => (
+    <Card>
+      <CardTitle
+	title={book.title}
+	subtitle={book.description}
+	/>
+    </Card>
+)
+
+Selection.propTypes = propTypes;
+export default Selection;

@@ -1,0 +1,26 @@
+{
+  "development": {
+    "username": "smoothpie",
+    "password": "gontier",
+    "database": "test",
+    "host": "127.0.0.1",
+    "port": 5432,
+    "dialect": "postgres"
+  },
+  "test": {
+    "username": "updateme",
+    "password": "gontier",
+    "database": "updateme",
+    "host": "127.0.0.1",
+    "port": 5432,
+    "dialect": "postgres"
+},
+  "production": {
+    "username": "updateme",
+    "password": "gontier",
+    "database": "updateme",
+    "host": "127.0.0.1",
+    "port": 5432,
+    "dialect": "postgres"
+  }
+}

@@ -1,0 +1,14 @@
+const booksController = require('../controllers').books;
+const notesController = require('../controllers').notes;
+
+module.exports = (app) => {
+    app.get('/api', (req, res) => res.status(200).send({
+	message: 'Welcome to Reading List API!',
+    }));
+    
+    app.post('/api/books', booksController.create);
+    app.get('/api/books', booksController.list);
+    
+    app.post('/api/books/id/notes', notesController.create);
+    app.get('/api/books/id/notes', notesController.list);
+}
