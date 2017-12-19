@@ -47764,7 +47764,7 @@ exports.BookStore = undefined;
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _desc, _value, _class, _descriptor, _descriptor2, _descriptor3, _descriptor4, _descriptor5, _descriptor6, _descriptor7;
+var _desc, _value, _class, _descriptor, _descriptor2, _descriptor3, _descriptor4, _descriptor5, _descriptor6, _descriptor7, _descriptor8, _descriptor9, _descriptor10;
 
 var _mobx = __webpack_require__(55);
 
@@ -47829,17 +47829,23 @@ var BookStore = (_class = function () {
 
       _initDefineProp(this, 'books', _descriptor, this);
 
-      _initDefineProp(this, 'isLoading', _descriptor2, this);
+      _initDefineProp(this, 'cover', _descriptor2, this);
 
-      _initDefineProp(this, 'selectedBook', _descriptor3, this);
+      _initDefineProp(this, 'overview', _descriptor3, this);
 
-      _initDefineProp(this, 'addBook', _descriptor4, this);
+      _initDefineProp(this, 'isLoading', _descriptor4, this);
 
-      _initDefineProp(this, 'selectBook', _descriptor5, this);
+      _initDefineProp(this, 'selectedBook', _descriptor5, this);
 
-      _initDefineProp(this, 'clearSelectedBook', _descriptor6, this);
+      _initDefineProp(this, 'addBook', _descriptor6, this);
 
-      _initDefineProp(this, 'setBooks', _descriptor7, this);
+      _initDefineProp(this, 'selectBook', _descriptor7, this);
+
+      _initDefineProp(this, 'clearSelectedBook', _descriptor8, this);
+
+      _initDefineProp(this, 'setBooks', _descriptor9, this);
+
+      _initDefineProp(this, 'setGoodReadsInfo', _descriptor10, this);
    }
 
    _createClass(BookStore, [{
@@ -47850,6 +47856,22 @@ var BookStore = (_class = function () {
          _axios2.default.get('/api/books').then(function (res) {
             _this.isLoading = false;
             _this.setBooks(res.data);
+         });
+      }
+
+      //how bout creating a relation for Book as hasOne Info? and create
+      //model info and route '/books/id/info. Yep!
+
+   }, {
+      key: 'getGoodReadsInfo',
+
+
+      //selectedBook id will go in query
+      value: function getGoodReadsInfo() {
+         var _this2 = this;
+
+         _axios2.default.get('').then(function (res) {
+            _this2.setGoodReadsInfo(res.data);
          });
       }
    }, {
@@ -47865,58 +47887,77 @@ var BookStore = (_class = function () {
    initializer: function initializer() {
       return [];
    }
-}), _descriptor2 = _applyDecoratedDescriptor(_class.prototype, 'isLoading', [_mobx.observable], {
+}), _descriptor2 = _applyDecoratedDescriptor(_class.prototype, 'cover', [_mobx.observable], {
+   enumerable: true,
+   initializer: function initializer() {
+      return '';
+   }
+}), _descriptor3 = _applyDecoratedDescriptor(_class.prototype, 'overview', [_mobx.observable], {
+   enumerable: true,
+   initializer: function initializer() {
+      return '';
+   }
+}), _descriptor4 = _applyDecoratedDescriptor(_class.prototype, 'isLoading', [_mobx.observable], {
    enumerable: true,
    initializer: function initializer() {
       return false;
    }
-}), _descriptor3 = _applyDecoratedDescriptor(_class.prototype, 'selectedBook', [_mobx.observable], {
+}), _descriptor5 = _applyDecoratedDescriptor(_class.prototype, 'selectedBook', [_mobx.observable], {
    enumerable: true,
    initializer: function initializer() {
       return {};
    }
-}), _applyDecoratedDescriptor(_class.prototype, 'selectedId', [_mobx.computed], Object.getOwnPropertyDescriptor(_class.prototype, 'selectedId'), _class.prototype), _descriptor4 = _applyDecoratedDescriptor(_class.prototype, 'addBook', [_mobx.action], {
+}), _applyDecoratedDescriptor(_class.prototype, 'selectedId', [_mobx.computed], Object.getOwnPropertyDescriptor(_class.prototype, 'selectedId'), _class.prototype), _descriptor6 = _applyDecoratedDescriptor(_class.prototype, 'addBook', [_mobx.action], {
    enumerable: true,
    initializer: function initializer() {
-      var _this2 = this;
+      var _this3 = this;
 
       return function (title, description) {
          _axios2.default.post('/api/books', {
             title: title,
             description: description
          }).then(function (res) {
-            _this2.books.push(res.data);
+            _this3.books.push(res.data);
          });
       };
    }
-}), _descriptor5 = _applyDecoratedDescriptor(_class.prototype, 'selectBook', [_mobx.action], {
-   enumerable: true,
-   initializer: function initializer() {
-      var _this3 = this;
-
-      return function (book) {
-         _this3.selectedBook = book;
-      };
-   }
-}), _descriptor6 = _applyDecoratedDescriptor(_class.prototype, 'clearSelectedBook', [_mobx.action], {
+}), _descriptor7 = _applyDecoratedDescriptor(_class.prototype, 'selectBook', [_mobx.action], {
    enumerable: true,
    initializer: function initializer() {
       var _this4 = this;
 
-      return function () {
-         _this4.selectedBook = {};
+      return function (book) {
+         _this4.selectedBook = book;
       };
    }
-}), _descriptor7 = _applyDecoratedDescriptor(_class.prototype, 'setBooks', [_mobx.action], {
+}), _descriptor8 = _applyDecoratedDescriptor(_class.prototype, 'clearSelectedBook', [_mobx.action], {
    enumerable: true,
    initializer: function initializer() {
       var _this5 = this;
 
-      return function (books) {
-         _this5.books = [].concat(_toConsumableArray(books));
+      return function () {
+         _this5.selectedBook = {};
       };
    }
-}), _applyDecoratedDescriptor(_class.prototype, 'getBooks', [_mobx.action], Object.getOwnPropertyDescriptor(_class.prototype, 'getBooks'), _class.prototype)), _class);
+}), _descriptor9 = _applyDecoratedDescriptor(_class.prototype, 'setBooks', [_mobx.action], {
+   enumerable: true,
+   initializer: function initializer() {
+      var _this6 = this;
+
+      return function (books) {
+         _this6.books = [].concat(_toConsumableArray(books));
+      };
+   }
+}), _applyDecoratedDescriptor(_class.prototype, 'getBooks', [_mobx.action], Object.getOwnPropertyDescriptor(_class.prototype, 'getBooks'), _class.prototype), _descriptor10 = _applyDecoratedDescriptor(_class.prototype, 'setGoodReadsInfo', [_mobx.action], {
+   enumerable: true,
+   initializer: function initializer() {
+      var _this7 = this;
+
+      return function (info) {
+         _this7.cover = info.cover, _this7.overview = info.overview;
+      };
+   }
+}), _applyDecoratedDescriptor(_class.prototype, 'getGoodReadsInfo', [_mobx.action], Object.getOwnPropertyDescriptor(_class.prototype, 'getGoodReadsInfo'), _class.prototype)), _class);
 
 
 var store = new BookStore();

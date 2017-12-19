@@ -5,17 +5,17 @@ import { ListItem } from 'material-ui/List';
 const styles = { margin: '5px' };
 
 const propTypes = {
-    label: PropTypes.string
+  label: PropTypes.string
 }
 
 const Note = ({ label }) => {
-    return (
-	<ListItem
-	  style = {styles}
-	  >
-	  { label }
-	</ListItem>
-    )
+  return (
+	  <ListItem
+	    style = {styles}
+	    >
+	    { label }
+	  </ListItem>
+  )
 }
 
 Note.propTypes = propTypes;

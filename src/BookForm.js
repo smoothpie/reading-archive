@@ -7,55 +7,52 @@ import TextField from 'material-ui/TextField';
 
 @inject('store') @observer
 class BookForm extends React.Component {
-    constructor(props) {
-	super(props);
-	extendObservable(this, {
-	    title: '',
-	    description: ''
-	})
-    }
+  constructor(props) {
+    super(props);
+    extendObservable(this, {
+      title: '',
+      description: ''
+    })
+  }
 
-    onChange = e => {
-	const { name, value } = e.target;
-	this[name] = value;
-    }
-    
-    onSubmit = (e) => {
-	e.preventDefault();
-	const { store } = this.props;
-	const { title, description } = this;
-	console.log(title, description);
-	this.props.store.addBook(title, description);
-    }
+  onChange = e => {
+    const { name, value } = e.target;
+    this[name] = value;
+  }
 
-    render() {
-	const { title, description } = this;
-	return(
-	    <form className="bookform" onSubmit={this.onSubmit}>
-	      <TextField
-		name="title"
-		onChange={this.onChange}
-		value={title}
-		hintText="Book title"
-		/>
-	      <TextField
-		className="input"
-		name="description"
-		onChange={this.onChange}
-		value={description}
-		hintText="Description"
-		/>
-	      <FlatButton
-		label="Add a Book"
-		primary={true}
-		type="submit"
-		/>
-	    </form>
-	)
-    }
+  onSubmit = (e) => {
+    e.preventDefault();
+    const { store } = this.props;
+    const { title, description } = this;
+    console.log(title, description);
+    this.props.store.addBook(title, description);
+  }
+
+  render() {
+    const { title, description } = this;
+    return(
+      <form className="bookform" onSubmit={this.onSubmit}>
+        <TextField
+          name="title"
+          onChange={this.onChange}
+          value={title}
+          hintText="Book title"
+          />
+        <TextField
+          className="input"
+          name="description"
+          onChange={this.onChange}
+          value={description}
+          hintText="Description"
+          />
+        <FlatButton
+          label="Add a Book"
+          primary={true}
+          type="submit"
+          />
+      </form>
+    )
+  }
 }
 
 export default BookForm;
-
-
-

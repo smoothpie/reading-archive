@@ -8,41 +8,41 @@ import axios from 'axios';
 
 class NoteStore {
 
-    @observable notes = [];
-    @observable isLoading = false;
-    @observable selectedNote = {};
+  @observable notes = [];
+  @observable isLoading = false;
+  @observable selectedNote = {};
 
-    @computed get selectedId() {
-	return this.selectedNote.id
-    }
+  @computed get selectedId() {
+	  return this.selectedNote.id
+  }
 
-    @action addNote = ( content ) => {
-	axios.post('/api/notes', {
+  @action addNote = ( content ) => {
+	  axios.post('/api/notes', {
 	    content: content
-	})
+	  })
 	    .then((res) => {
-		this.notes.push(res.data)
+		    this.notes.push(res.data)
 	    })
-    }
+  }
 
-    @action selectNote = (note) => {
-	this.selectedNote = note
-    }
+  @action selectNote = (note) => {
+	  this.selectedNote = note
+  }
 
-    @action clearSelectedNote = () => {
-	this.selectedNote = {}
-    }
-    
-    @action setNotes = (notes) => {
-	this.notes = [...notes]
-    }
+  @action clearSelectedNote = () => {
+	  this.selectedNote = {}
+  }
 
-    @action getNotes() {
-	axios.get('/api/notes').then((res) => {
+  @action setNotes = (notes) => {
+	  this.notes = [...notes]
+  }
+
+  @action getNotes() {
+	  axios.get('/api/notes').then((res) => {
 	    this.isLoading = false;
 	    this.setNotes(res.data)
-	})
-    }
+	  })
+  }
 }
 
 const notestore = new NoteStore();

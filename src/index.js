@@ -11,11 +11,11 @@ import notestore from '../stores/NoteStore';
 import App from './App';
 
 ReactDOM.render(
-    <MuiThemeProvider>
-	<Provider store={store} notestore={notestore}>
-	<BrowserRouter>
-	  <App />
-	</BrowserRouter>
-	</Provider>
-    </MuiThemeProvider>
-, document.getElementById('root'));
+  <MuiThemeProvider>
+    <Provider store={store} notestore={notestore}>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </Provider>
+  </MuiThemeProvider>
+    , document.getElementById('root'));
