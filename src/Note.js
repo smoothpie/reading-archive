@@ -2,7 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { ListItem } from 'material-ui/List';
 
-const styles = { margin: '5px' };
+const styles = {
+  margin: '15px',
+  display: 'inline-block',
+  backgroundColor: '#c6d4d8',
+  borderRadius: '13px'
+};
 
 const propTypes = {
   label: PropTypes.string
@@ -10,11 +15,13 @@ const propTypes = {
 
 const Note = ({ label }) => {
   return (
-	  <ListItem
-	    style = {styles}
-	    >
-	    { label }
-	  </ListItem>
+    <div>
+	    <ListItem
+	      style = {styles}
+	      >
+	      { label }
+	    </ListItem>
+    </div>
   )
 }
 

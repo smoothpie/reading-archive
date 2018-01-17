@@ -12,7 +12,10 @@ module.exports = {
         type: Sequelize.STRING
       },
       description: {
-	  type: Sequelize.STRING
+	      type: Sequelize.STRING
+      },
+      status: {
+        type: Sequelize.STRING
       },
       createdAt: {
         allowNull: false,

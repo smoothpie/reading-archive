@@ -1,10 +1,5 @@
-//make it more abstract (books and notes methods are the same)
-//Book, Note -> Item
-
 import { observable, action, computed, useStrict } from 'mobx';
 import axios from 'axios';
-
-//useStrict(true);
 
 class NoteStore {
 
@@ -16,8 +11,9 @@ class NoteStore {
 	  return this.selectedNote.id
   }
 
-  @action addNote = ( content ) => {
-	  axios.post('/api/notes', {
+  @action addNote = ( content, bookId ) => {
+	  axios.post(`api/books/${bookId}/notes`, {
+      bookId: bookId,
 	    content: content
 	  })
 	    .then((res) => {
@@ -37,8 +33,8 @@ class NoteStore {
 	  this.notes = [...notes]
   }
 
-  @action getNotes() {
-	  axios.get('/api/notes').then((res) => {
+  @action getNotes(bookId) {
+	  axios.get(`/api/books/${bookId}/notes`).then((res) => {
 	    this.isLoading = false;
 	    this.setNotes(res.data)
 	  })

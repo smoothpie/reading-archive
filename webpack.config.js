@@ -10,52 +10,59 @@ module.exports = {
     publicPath: '/',
     filename: 'bundle.js'
   },
-module: {
-  rules: [
-    {
-      test: [/\.js$/, /\.jsx?$/],
-      loader: 'babel-loader',
-      exclude: /node_modules/,
-      query: {
+  module: {
+    rules: [
+      {
+        test: [/\.js$/, /\.jsx?$/],
+        loader: 'babel-loader',
+        exclude: /node_modules/,
+        query: {
           presets: ['es2015', 'stage-2', 'react'],
-	  plugins: ['transform-decorators-legacy']
-             }
-    },
-    {
-      test: /\.json$/,
-      use: 'json-loader'
-    },
-    {
-      test: /\.css$/,
-      use: ExtractTextPlugin.extract({
-        fallback: 'style-loader',
-        use: 'css-loader'
-      })
-    },
-    {
-      test: [/\.png$/, /\.jpe?g$/, /\.svg$/],
-      use: [
-        {
-          loader: 'file-loader',
-          options: {
-            name: '[path][name].[ext]'
-          }
+          plugins: [
+            ["transform-runtime", {
+              "polyfill": false,
+              "regenerator": true
+            }],
+            'transform-decorators-legacy'
+          ]
         }
-      ]
-    },
-    {
-      test: /\.woff2?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+      },
+      {
+        test: /\.json$/,
+        use: 'json-loader'
+      },
+      {
+        test: /\.css$/,
+        use: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: 'css-loader'
+        })
+      },
+      {
+        test: [/\.png$/, /\.jpe?g$/, /\.svg$/],
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              name: '[path][name].[ext]'
+            }
+          }
+        ]
+      },
+      {
+        test: /\.woff2?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
         loader: "url-loader"
-    },
-    {
-  test: /\.(ttf|eot|svg)(\?[\s\S]+)?$/,
-  loader: 'file-loader'
-},
+      },
+      {
+        test: /\.(ttf|eot|svg)(\?[\s\S]+)?$/,
+        loader: 'file-loader'
+      },
+    ]
+  },
+  plugins: [
+    new HtmlWebpackPlugin({
+    template: './public/index.html'
+    }),
+    new ExtractTextPlugin('./bundle.css')
   ]
-},
-plugins: [new HtmlWebpackPlugin({
-  template: './public/index.html'
-}),
-   new ExtractTextPlugin('./bundle.css')
- ]
 }

@@ -1,12 +1,12 @@
 import { observable, action, computed, useStrict } from 'mobx';
 import axios from 'axios';
 
-//useStrict(true);
-
 class BookStore {
 
   @observable books = [];
   @observable cover = '';
+  @observable author = '';
+  @observable title = '';
   @observable overview = '';
   @observable isLoading = false;
   @observable selectedBook = {};
@@ -26,7 +26,9 @@ class BookStore {
   }
 
   @action selectBook = (book) => {
-	  this.selectedBook = book
+	  this.selectedBook = book;
+    console.log(book.title);
+    this.getGoodReadsInfo(book.title);
   }
 
   @action clearSelectedBook = () => {
@@ -38,22 +40,21 @@ class BookStore {
   }
 
   @action getBooks() {
-	  axios.get('/api/books').then((res) => {
+	  axios.get('api/books').then((res) => {
 	    this.isLoading = false;
 	    this.setBooks(res.data)
 	  })
   }
 
-  //how bout creating a relation for Book as hasOne Info? and create
-  //model info and route '/books/id/info. Yep!
   @action setGoodReadsInfo = (info) => {
-	  this.cover = info.cover,
-	  this.overview = info.overview
+    this.title = info.goodreadsResult.GoodreadsResponse.search[0].results[0].work[0].best_book[0].title;
+    this.author = info.goodreadsResult.GoodreadsResponse.search[0].results[0].work[0].best_book[0].author[0].name;
+    this.cover = info.goodreadsResult.GoodreadsResponse.search[0].results[0].work[0].best_book[0].image_url;
   }
 
-  //selectedBook id will go in query
-  @action getGoodReadsInfo() {
-    axios.get('').then((res) => {
+  @action getGoodReadsInfo(bookTitle) {
+    axios.get(`/api/books/${bookTitle}/info`).then((res) => {
+      console.log(res.data);
 	    this.setGoodReadsInfo(res.data)
 	  })
   }
