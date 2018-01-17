@@ -6,5 +6,12 @@ module.exports = (sequelize, DataTypes) => {
     }
   });
 
+  Note.associate = (models) => {
+    Note.belongsTo(models.Book, {
+      foreignKey: 'bookId',
+      onDelete: 'CASCADE',
+    });
+  };
+
   return Note;
 };

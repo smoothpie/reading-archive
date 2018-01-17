@@ -1,7 +1,6 @@
 import React from 'react';
 import { observer, inject, action } from 'mobx-react';
 import { observable } from 'mobx';
-import axios from 'axios';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 
@@ -16,9 +15,8 @@ class NoteForm extends React.Component {
 
   onSubmit = (e) => {
     e.preventDefault();
-    const { notestore } = this.props;
-    console.log( notestore, this.content);
-    notestore.addNote(this.content);
+    const { notestore, selectedBook } = this.props;
+    notestore.addNote(this.content, selectedBook.id);
     this.content = "";
   }
 
@@ -27,8 +25,8 @@ class NoteForm extends React.Component {
       <form className="noteform" onSubmit={this.onSubmit}>
         <TextField
           name="content"
+          value={this.content}
           onChange={this.onChange}
-          multiLine={true}
           />
         <RaisedButton
           className="btn"

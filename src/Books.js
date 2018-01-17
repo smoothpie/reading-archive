@@ -1,24 +1,18 @@
 import React from 'react';
 import { observer, inject, PropTypes } from 'mobx-react';
-
 import Book  from './Book';
-import Selection from './Selection';
+import BookInfo from './BookInfo';
 import Recap from './Recap';
 import _ from 'lodash';
-
 import {List, ListItem} from 'material-ui/List';
 import FlatButton from 'material-ui/FlatButton';
 
-/*const propTypes = {
-    store: PropTypes.object
-}*/
 @inject("store", "notestore")
 @observer
 class Books extends React.Component {
 
   componentDidMount() {
     this.props.store.getBooks();
-    this.props.notestore.getNotes();
   }
 
   renderSelection() {
@@ -26,22 +20,30 @@ class Books extends React.Component {
     if (_.isEmpty(store.selectedBook)) return null;
     return (
       <div className='selection'>
-        <Selection
-          book={store.selectedBook}
+        <BookInfo
+          title={store.title}
+          author={store.author}
+          cover={store.cover}
           />
-        <Recap notes={notestore.notes}/>
+        <Recap
+          book={store.selectedBook}
+          notes={notestore.notes}
+          />
       </div>
     )
   }
 
   renderBooks() {
-    const { store } = this.props;
+    const { store, notestore } = this.props;
     return store.books.map((book) => (
       <Book
         key = {book.id}
         selected = {book.id === store.selectedId}
         label = {book.title}
-        onClick = { () => {store.selectBook(book)} }
+        onClick = { () => {
+          store.selectBook(book);
+          notestore.getNotes(book.id)
+        } }
         />
     ))
   }
@@ -58,5 +60,4 @@ class Books extends React.Component {
   }
 }
 
-/*Books.propTypes = propTypes;*/
 export default Books;

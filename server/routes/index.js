@@ -1,22 +1,25 @@
+const router = require('express').Router();
 const booksController = require('../controllers').books;
 const notesController = require('../controllers').notes;
-import request from 'request-promise';
-import { parseString } from 'xml2js';
+const axios = require ('axios');
+const parseString = require('xml2js').parseString;
 
-module.exports = (app) => {
+router.get('/', booksController.list);
+router.get('/:bookId', booksController.find);
+router.post('/', booksController.create);
 
-  app.post('/api/books', booksController.create);
-  app.get('/api/books', booksController.list);
+router.get('/:bookId/notes', notesController.list);
+router.post('/:bookId/notes', notesController.create);
 
-  app.post('/api/notes', notesController.create);
-  app.get('/api/notes', notesController.list);
+router.get('/:bookTitle/info', (req, res) => {
+  axios.get(`https://www.goodreads.com/search/index.xml?key=7RMNsRruX8pKnTrGp3TzrA&q=${req.params.bookTitle}`)
+    .then(result => parseString(result.data, (err, goodreadsResult) => {
+      res.json({goodreadsResult});
+    }))
+    .catch(error => {
+      console.log(req.params.bookTitle)
+    })
 
-  app.get('/api/search', req, res) => {
-	  request
-	    .get(`https://www.goodreads.com/search/index.xml?key=7RMNsRruX8pKnTrGp3TzrA&q=${req.query.q}`)
-	    .then(result =>
-		        parseString(result, goodreadsResult) =>
-		        res.json({ goodreadsResult })
-		       ))
-}
-}
+})
+
+module.exports = router;

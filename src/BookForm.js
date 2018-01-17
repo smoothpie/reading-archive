@@ -20,12 +20,13 @@ class BookForm extends React.Component {
     this[name] = value;
   }
 
-  onSubmit = (e) => {
+  onSubmit = e => {
     e.preventDefault();
     const { store } = this.props;
     const { title, description } = this;
-    console.log(title, description);
     this.props.store.addBook(title, description);
+    this.title = "";
+    this.desctription = "";
   }
 
   render() {

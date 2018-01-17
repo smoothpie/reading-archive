@@ -21,7 +21,7 @@
 
 .noteform {
   display: block;
-  margin: 25px auto;
+  margin: 25px 75px 35px 75px;
   width: 55%
 }
 
@@ -31,4 +31,11 @@
 
 .btn {
   margin-left: 10px;
+}
+
+.goodreads__img {
+  float: right;
+  width: 20%;
+  height: 28%;
+  margin: 15px;
 }
