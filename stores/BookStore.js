@@ -4,6 +4,7 @@ import axios from 'axios';
 class BookStore {
 
   @observable books = [];
+  @observable bookInfo = [];
   @observable cover = '';
   @observable author = '';
   @observable title = '';
@@ -15,20 +16,16 @@ class BookStore {
 	  return this.selectedBook.id
   }
 
-  @action addBook = ( title, description ) => {
-	  axios.post('/api/books', {
+  @action addBook = async ( title, description ) => {
+	  let response = await axios.post('/api/books', {
 	    title: title,
 	    description: description
 	  })
-	    .then((res) => {
-		    this.books.push(res.data)
-	    })
+		this.books.push(response.data);
   }
 
   @action selectBook = (book) => {
 	  this.selectedBook = book;
-    console.log(book.title);
-    this.getGoodReadsInfo(book.title);
   }
 
   @action clearSelectedBook = () => {
@@ -39,25 +36,30 @@ class BookStore {
 	  this.books = [...books]
   }
 
-  @action getBooks() {
-	  axios.get('api/books').then((res) => {
-	    this.isLoading = false;
-	    this.setBooks(res.data)
-	  })
+  @action
+  getBooks = async () => {
+	  let response = await axios.get('api/books');
+	  this.isLoading = false;
+	  this.setBooks(response.data)
+    this.getGoodReadsInfo();
   }
 
-  @action setGoodReadsInfo = (info) => {
-    this.title = info.goodreadsResult.GoodreadsResponse.search[0].results[0].work[0].best_book[0].title;
-    this.author = info.goodreadsResult.GoodreadsResponse.search[0].results[0].work[0].best_book[0].author[0].name;
-    this.cover = info.goodreadsResult.GoodreadsResponse.search[0].results[0].work[0].best_book[0].image_url;
+  @action setGoodReadsInfo = (info, book) => {
+    book.title = info.goodreadsResult.GoodreadsResponse.search[0].results[0].work[0].best_book[0].title;
+    book.author = info.goodreadsResult.GoodreadsResponse.search[0].results[0].work[0].best_book[0].author[0].name;
+    book.cover = info.goodreadsResult.GoodreadsResponse.search[0].results[0].work[0].best_book[0].image_url;
+    console.log(book, 'now');
   }
 
-  @action getGoodReadsInfo(bookTitle) {
-    axios.get(`/api/books/${bookTitle}/info`).then((res) => {
-      console.log(res.data);
-	    this.setGoodReadsInfo(res.data)
-	  })
+  @action
+  getGoodReadsInfo = async () => {
+    this.books.forEach(async book => {
+      let response = await axios.get(`/api/books/${book.title}/info`);
+      console.log(response.data);
+	    this.setGoodReadsInfo(response.data, book);
+    })
   }
+
 }
 
 const store = new BookStore();

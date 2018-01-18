@@ -1,22 +1,36 @@
+* {
+  margin: 0;
+  padding: 0
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  background-color: #165e6f
+}
+
+.navbar h2 {
+  margin: 15px 20px;
+  color: #f1eaea;
+  font-family: Roboto sans-serif
+}
+
 .main {
-  display: inline-block
+  display: flex;
+  flex-flow: row wrap
 }
 
 .booklist {
-  float: left;
-  display: block;
-  width: 400px;
-  margin-right: 30px;
 }
 
 .selection {
-  float: right;
-  display: block;
   width: 700px;
+  margin: 30px 0;
 }
 
 .bookform {
-  margin-left: 10px
+  margin-left: 30px;
+  margin-top: 10px;
 }
 
 .noteform {

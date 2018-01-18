@@ -1,6 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { ListItem } from 'material-ui/List';
+import {GridTile} from 'material-ui/GridList';
+
+const styles = {
+  width: '100%'
+}
 
 const propTypes = {
   onClick: PropTypes.func,
@@ -8,15 +13,18 @@ const propTypes = {
   label: PropTypes.string,
 }
 
-const Book = ({ onClick, label, selected }) => {
+const Book = ({ onClick, title, author, cover, selected }) => {
   const classes = selected ? 'bold' : '';
   return (
-	  <ListItem
-	    onClick = { onClick }
-	    className={classes}
-	    >
-	    { label }
-	  </ListItem>
+    <GridTile
+      style={styles}
+      key={cover}
+      title={title}
+      subtitle={<span>by <b>{author}</b></span>}
+      onClick = { onClick }
+      >
+      <img src={cover} />
+    </GridTile>
   )
 }
 

@@ -11,14 +11,12 @@ class NoteStore {
 	  return this.selectedNote.id
   }
 
-  @action addNote = ( content, bookId ) => {
-	  axios.post(`api/books/${bookId}/notes`, {
+  @action addNote = async ( content, bookId ) => {
+	  let response = await axios.post(`api/books/${bookId}/notes`, {
       bookId: bookId,
 	    content: content
 	  })
-	    .then((res) => {
-		    this.notes.push(res.data)
-	    })
+		this.notes.push(response.data);
   }
 
   @action selectNote = (note) => {
@@ -33,11 +31,10 @@ class NoteStore {
 	  this.notes = [...notes]
   }
 
-  @action getNotes(bookId) {
-	  axios.get(`/api/books/${bookId}/notes`).then((res) => {
-	    this.isLoading = false;
-	    this.setNotes(res.data)
-	  })
+  @action getNotes = async (bookId) => {
+	  let response = await axios.get(`/api/books/${bookId}/notes`);
+	  this.isLoading = false;
+	  this.setNotes(response.data)
   }
 }
 
