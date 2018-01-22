@@ -6,8 +6,12 @@ import Recap from './Recap';
 import _ from 'lodash';
 import {List, ListItem} from 'material-ui/List';
 import FlatButton from 'material-ui/FlatButton';
+import RaisedButton from 'material-ui/RaisedButton';
 import {GridList} from 'material-ui/GridList';
 import {Card, CardActions, CardTitle} from 'material-ui/Card';
+import SelectField from 'material-ui/SelectField';
+import MenuItem from 'material-ui/MenuItem';
+import {Toolbar, ToolbarGroup, ToolbarSeparator, ToolbarTitle} from 'material-ui/Toolbar';
 import './style.css';
 
 const styles = {
@@ -16,14 +20,20 @@ const styles = {
     flexWrap: 'wrap',
     justifyContent: 'center',
     margin: '30px',
-    height: '60%'
+    height: '60%',
   },
   gridList: {
     overflowY: 'auto',
+    width: '500px'
   },
   cardTitle: {
-    backgroundColor: '#e8e8e8',
     color: 'rgba(53, 142, 165, 0.87)'
+  },
+  toolbar: {
+    backgroundColor: '#fff'
+  },
+  customWidth: {
+    width: 150
   }
 };
 
@@ -31,8 +41,14 @@ const styles = {
 @inject("store", "notestore")
 @observer
 class Books extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      value: 1
+    }
+  }
 
-  componentWillMount() {
+  componentDidMount() {
     this.props.store.getBooks();
   }
 
@@ -57,8 +73,7 @@ class Books extends React.Component {
 
   renderBooks() {
     const { store, notestore } = this.props;
-    console.log(store.bookInfo);
-    return store.books.map((book, i) => (
+    return store.filteredBooks.map((book, i) => (
       <Book
         key = {book.id}
         selected = {book.id === store.selectedId}
@@ -73,14 +88,59 @@ class Books extends React.Component {
     ))
   }
 
+  handleChange = (e, index, value) => {
+    this.setState({ value })
+  }
+
+  filterBooks = (filterBy) => {
+    const { books } = this.props.store;
+    const filteredBooks = filterBy !== "All" ? books.filter(book => {
+      return book.status === filterBy
+    }) : books;
+    this.props.store.setFilteredBooks(filteredBooks);
+  }
+
   render() {
     return(
       <div className="main">
         <Card style={styles.root}>
-          <CardTitle
-            title="My Books"
-            style={styles.cardTitle}
-            />
+          <div className="books__header">
+            <CardTitle
+              title="My Books"
+              style={styles.cardTitle}
+              />
+            <Toolbar style={styles.toolbar}>
+              <ToolbarGroup firstChild={true}>
+                <SelectField
+                  floatingLabelText="Show"
+                  value={this.state.value}
+                  onChange={this.handleChange}
+                  style={styles.customWidth}
+                  >
+                  <MenuItem
+                    value={1}
+                    primaryText="All"
+                    onClick={() => this.filterBooks("All")}
+                    />
+                    <MenuItem
+                      value={2}
+                      primaryText="To Read"
+                      onClick={() => this.filterBooks("To Read")}
+                      />
+                      <MenuItem
+                        value={3}
+                        primaryText="Reading"
+                        onClick={() => this.filterBooks("Reading")}
+                        />
+                        <MenuItem
+                          value={4}
+                          primaryText="Finished"
+                          onClick={() => this.filterBooks("Finished")}
+                          />
+                </SelectField>
+              </ToolbarGroup>
+            </Toolbar>
+          </div>
           <GridList
             cellHeight={150}
             cols={4}
