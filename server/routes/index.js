@@ -7,6 +7,7 @@ const parseString = require('xml2js').parseString;
 router.get('/', booksController.list);
 router.get('/:bookId', booksController.find);
 router.post('/', booksController.create);
+router.put('/:bookId', booksController.update);
 
 router.get('/:bookId/notes', notesController.list);
 router.post('/:bookId/notes', notesController.create);

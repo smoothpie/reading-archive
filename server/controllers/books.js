@@ -42,5 +42,16 @@ module.exports = {
         return res.status(200).send(book);
       })
       .catch(error => res.status(400).send(error));
+  },
+  update(req, res, next) {
+    return Book
+      .update(
+        {status: req.body.status},
+        {returning: true, where: {id: req.params.bookId} }
+      )
+      .then(([ rowsUpdate, [updatedBook] ]) => {
+        res.json(updatedBook)
+      })
+      .catch(next);
   }
 };

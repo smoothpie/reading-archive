@@ -27,6 +27,7 @@ class BookForm extends React.Component {
     this.props.store.addBook(title, description);
     this.title = "";
     this.desctription = "";
+    this.forceUpdate();
   }
 
   render() {

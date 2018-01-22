@@ -20,12 +20,22 @@
   flex-flow: row wrap
 }
 
+.books__header {
+  display: flex;
+  justify-content: space-between
+}
+
 .booklist {
 }
 
 .selection {
   width: 700px;
   margin: 30px 0;
+}
+
+.book-info-card__head {
+  display: flex;
+  justify-content: space-between;
 }
 
 .bookform {

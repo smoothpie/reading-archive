@@ -4,6 +4,7 @@ import axios from 'axios';
 class BookStore {
 
   @observable books = [];
+  @observable filteredBooks = [];
   @observable bookInfo = [];
   @observable cover = '';
   @observable author = '';
@@ -36,6 +37,10 @@ class BookStore {
 	  this.books = [...books]
   }
 
+  @action setFilteredBooks = (books) => {
+    this.filteredBooks = [...books]
+  }
+
   @action
   getBooks = async () => {
 	  let response = await axios.get('api/books');
@@ -48,7 +53,6 @@ class BookStore {
     book.title = info.goodreadsResult.GoodreadsResponse.search[0].results[0].work[0].best_book[0].title;
     book.author = info.goodreadsResult.GoodreadsResponse.search[0].results[0].work[0].best_book[0].author[0].name;
     book.cover = info.goodreadsResult.GoodreadsResponse.search[0].results[0].work[0].best_book[0].image_url;
-    console.log(book, 'now');
   }
 
   @action
@@ -58,6 +62,7 @@ class BookStore {
       console.log(response.data);
 	    this.setGoodReadsInfo(response.data, book);
     })
+    this.setFilteredBooks(this.books);
   }
 
 }
