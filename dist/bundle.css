@@ -63,3 +63,11 @@
   height: 28%;
   margin: 15px;
 }
+
+.recap-note {
+  display: flex;
+}
+
+.recap-note__delete {
+  align-self: center
+}

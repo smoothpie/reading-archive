@@ -31,5 +31,21 @@ module.exports = {
         return res.status(200).send(note);
       })
       .catch(error => res.status(400).send(error));
+  },
+  destroy(req, res) {
+    return Note
+      .findById(req.params.noteId)
+      .then(note => {
+        if (!note) {
+          return res.status(404).send({
+            message: 'Note Not Found',
+          });
+        }
+        return note
+          .destroy()
+          .then(() => res.status(204).send())
+          .catch(error => res.status(400).send(error))
+      })
+      .catch(error => res.status(400).send(error));
   }
 }

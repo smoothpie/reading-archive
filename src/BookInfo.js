@@ -7,6 +7,8 @@ import DropDownMenu from 'material-ui/DropDownMenu';
 import MenuItem from 'material-ui/MenuItem';
 import {Toolbar, ToolbarGroup, ToolbarSeparator, ToolbarTitle} from 'material-ui/Toolbar';
 import Chip from 'material-ui/Chip';
+import IconButton from 'material-ui/IconButton';
+import ActionDelete from 'material-ui/svg-icons/action/delete';
 import { Link } from 'react-router-dom';
 import GoodReads from './GoodReads';
 import axios from 'axios';
@@ -43,6 +45,11 @@ class BookInfo extends Component {
     this.setState({ value })
   }
 
+  handleBookDelete = () => {
+    const { book, store } = this.props;
+    store.deleteBook(book);
+  }
+
   render() {
     const { store, book, title, author, cover } = this.props;
     return(
@@ -68,6 +75,9 @@ class BookInfo extends Component {
                   />
               </DropDownMenu>
             </ToolbarGroup>
+            <IconButton onClick={this.handleBookDelete}>
+              <ActionDelete />
+            </IconButton>
           </Toolbar>
           <div className="book-info-card__head">
             <CardTitle

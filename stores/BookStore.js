@@ -26,6 +26,12 @@ class BookStore {
     this.getBooks();
   }
 
+  @action deleteBook = async (book) => {
+    await axios.delete(`/api/books/${book.id}`)
+    this.getBooks();
+    this.selectedBook = {};
+  }
+
   @action selectBook = (book) => {
 	  this.selectedBook = book;
   }

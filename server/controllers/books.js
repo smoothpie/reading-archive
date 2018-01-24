@@ -53,5 +53,21 @@ module.exports = {
         res.json(updatedBook)
       })
       .catch(next);
+  },
+  destroy(req, res) {
+    return Book
+      .findById(req.params.bookId)
+      .then(book => {
+        if (!book) {
+          return res.status(404).send({
+            message: 'Book Not Found',
+          });
+        }
+        return book
+          .destroy()
+          .then(() => res.status(204).send())
+          .catch(error => res.status(400).send(error))
+      })
+      .catch(error => res.status(400).send(error));
   }
 };

@@ -20,6 +20,12 @@ class NoteStore {
     this.getNotes(bookId);
   }
 
+  @action deleteNote = async (note, book) => {
+    let response = await axios.delete(`api/books/${book.id}/notes/${note.id}`);
+    this.getNotes(book.id);
+  }
+
+
   @action selectNote = (note) => {
 	  this.selectedNote = note
   }

@@ -27,6 +27,8 @@ class Recap extends React.Component {
             <Note
               key = {note.id}
               label = {note.content}
+              note = {note}
+              book = {this.props.book}
               />
           ))}
         </List>
