@@ -20,11 +20,12 @@ const styles = {
     flexWrap: 'wrap',
     justifyContent: 'center',
     margin: '30px',
-    height: '60%',
+    height: '64%'
   },
   gridList: {
     overflowY: 'auto',
-    width: '500px'
+    width: '500px',
+    height: '350px'
   },
   cardTitle: {
     color: 'rgba(53, 142, 165, 0.87)'

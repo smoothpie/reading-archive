@@ -17,6 +17,7 @@ class NoteStore {
 	    content: content
 	  })
 		this.notes.push(response.data);
+    this.getNotes(bookId);
   }
 
   @action selectNote = (note) => {

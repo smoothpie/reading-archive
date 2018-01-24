@@ -23,6 +23,7 @@ class BookStore {
 	    description: description
 	  })
 		this.books.push(response.data);
+    this.getBooks();
   }
 
   @action selectBook = (book) => {
@@ -45,8 +46,11 @@ class BookStore {
   getBooks = async () => {
 	  let response = await axios.get('api/books');
 	  this.isLoading = false;
-	  this.setBooks(response.data)
-    this.getGoodReadsInfo();
+	  this.setBooks(response.data);
+    this.books.forEach(book => {
+      this.getGoodReadsInfo(book);
+    });
+    this.setFilteredBooks(this.books);
   }
 
   @action setGoodReadsInfo = (info, book) => {
@@ -56,13 +60,17 @@ class BookStore {
   }
 
   @action
-  getGoodReadsInfo = async () => {
-    this.books.forEach(async book => {
-      let response = await axios.get(`/api/books/${book.title}/info`);
-      console.log(response.data);
-	    this.setGoodReadsInfo(response.data, book);
-    })
-    this.setFilteredBooks(this.books);
+  getGoodReadsInfo = async (book) => {
+    let response = await axios.get(`/api/books/${book.title}/info`);
+	  this.setGoodReadsInfo(response.data, book);
+  }
+
+  @action
+  updateBookStatus = async (status) => {
+    let response = await axios.put(`/api/books/${this.selectedBook.id}`, {
+      "status": status
+    });
+    this.selectedBook.status = status;
   }
 
 }

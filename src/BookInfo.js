@@ -43,16 +43,8 @@ class BookInfo extends Component {
     this.setState({ value })
   }
 
-  setStatus = async status => {
-    const { book } = this.props;
-    let response = await axios.put(`/api/books/${book.id}`, {
-      "status": status
-    });
-    this.forceUpdate();
-  }
-
   render() {
-    const { book, title, author, cover } = this.props;
+    const { store, book, title, author, cover } = this.props;
     return(
       <div>
         <Card>
@@ -62,17 +54,17 @@ class BookInfo extends Component {
                 <MenuItem
                   value={1}
                   primaryText="To Read"
-                  onClick={() => this.setStatus("To Read")}
+                  onClick={() => store.updateBookStatus("To Read")}
                   />
                 <MenuItem
                   value={2}
                   primaryText="Reading"
-                  onClick={() => this.setStatus("Reading")}
+                  onClick={() => store.updateBookStatus("Reading")}
                   />
                 <MenuItem
                   value={3}
                   primaryText="Finished"
-                  onClick={() => this.setStatus("Finished")}
+                  onClick={() => store.updateBookStatus("Finished")}
                   />
               </DropDownMenu>
             </ToolbarGroup>
@@ -85,7 +77,7 @@ class BookInfo extends Component {
             <Chip
               style={styles.chip}
               >
-              {book.status}
+              {store.selectedBook.status}
             </Chip>
           </div>
           <GoodReads cover={cover}/>
