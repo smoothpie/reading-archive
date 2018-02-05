@@ -18,12 +18,6 @@ app.use(compression());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-app.use((req, res, next) => {
-  setTimeout(function() {
-    next();
-  }, 500)
-});
-
 app.use('/api/books', routes);
 
 app.use(express.static(path.join(__dirname, './dist')));

@@ -1,0 +1,21 @@
+version: '2'
+services:
+  web:
+    image: smoothpie/reading-archive:latest
+    working_dir: /app
+    ports:
+      - "3000:3000"
+    depends_on:
+      - postgres
+    environment:
+      - PORT=3000
+      - DB_CONNECTION=postgres://smoothpie:gontier@postgres:5432/test
+      - NODE_ENV=development
+  postgres:
+    image: postgres:9.6
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: smoothpie
+      POSTGRES_PASSWORD: gontier
+      POSTGRES_DB: test
