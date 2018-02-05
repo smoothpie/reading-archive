@@ -9,6 +9,7 @@ services:
       - postgres
     environment:
       - PORT=3000
+      - HOST=0.0.0.0
       - DB_CONNECTION=postgres://smoothpie:gontier@postgres:5432/test
       - NODE_ENV=development
   postgres:
