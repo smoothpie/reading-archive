@@ -4,11 +4,11 @@ services:
     image: smoothpie/reading-archive:latest
     working_dir: /app
     ports:
-      - "3000:3000"
+      - "80:80"
     depends_on:
       - postgres
     environment:
-      - PORT=3000
+      - PORT=80
       - HOST=0.0.0.0
       - DB_CONNECTION=postgres://smoothpie:gontier@postgres:5432/test
       - NODE_ENV=development
